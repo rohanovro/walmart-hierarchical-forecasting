@@ -1,5 +1,6 @@
 # Walmart Hierarchical Demand Forecasting
-
+Mahmudul Hasan Rohan
+#jashore university of science and technology
 Forecast weekly store-department sales across Walmart's 3-level hierarchy and evaluate four reconciliation methods for coherent, cost-effective predictions.
 
 ---
