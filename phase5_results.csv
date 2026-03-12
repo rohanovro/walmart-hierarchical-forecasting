@@ -1,0 +1,14 @@
+Method,Level,RMSE,MAPE%
+base_gbm,dept,3124.0,3543.3
+bottom_up,dept,3124.0,3543.3
+bottom_up,store,58236.0,3.6
+bottom_up,chain,216613.0,2.8
+top_down,dept,3563.0,1372.6
+top_down,store,58121.0,3.3
+top_down,chain,216528.0,2.8
+mint,dept,3003.0,3467.1
+mint,store,29558.0,2.4
+mint,chain,0.0,0.0
+erm,dept,2682.0,729.5
+erm,store,47567.0,2.8
+erm,chain,174238.0,1.9

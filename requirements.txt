@@ -1,0 +1,11 @@
+# Core dependencies
+pandas>=1.5
+numpy>=1.23
+scikit-learn>=1.2
+scipy>=1.10
+matplotlib>=3.7
+seaborn>=0.12
+
+# Optional — better forecasting accuracy
+# pip install lightgbm        then set USE_LGBM = True in walmart_pipeline.py
+# pip install hierarchicalforecast   (Nixtla full MinT/ERM suite)
