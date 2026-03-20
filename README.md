@@ -126,6 +126,13 @@ python walmart_pipeline.py
 | Visualization | `matplotlib`, `seaborn` |
 
 ---
+## ⚠️ Note on MAPE Values
+Department-level MAPE appears high (3000%+) because 
+many store-department pairs have near-zero weekly sales 
+(< $10). MAPE is undefined or extreme when actual 
+values approach zero. RMSE is the more reliable metric 
+for this dataset — consistent with Walmart M5 competition 
+evaluation criteria.
 
 ## Research Summary
 
