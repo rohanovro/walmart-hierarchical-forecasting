@@ -59,8 +59,6 @@ Independent forecasts at each level are **incoherent** — the sum of department
 
 Download from Kaggle → [Walmart Store Sales Forecasting](https://www.kaggle.com/competitions/walmart-recruiting-store-sales-forecasting/data)
 
-Place these 3 files in the `data/` folder before running:
-
 | File | Description | Rows |
 |------|-------------|------|
 | `train.csv` | Weekly sales per store-dept | 421,570 |
