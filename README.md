@@ -55,6 +55,11 @@ Independent forecasts at each level are **incoherent** — the sum of department
 
 ---
 
+
+## Research Summary
+
+See [research_summary.md](research_summary.md) for the full write-up covering introduction, methodology, results, and conclusions with academic references.
+
 ## Dataset
 
 Download from Kaggle → [Walmart Store Sales Forecasting](https://www.kaggle.com/competitions/walmart-recruiting-store-sales-forecasting/data)
@@ -132,6 +137,4 @@ values approach zero. RMSE is the more reliable metric
 for this dataset — consistent with Walmart M5 competition 
 evaluation criteria.
 
-## Research Summary
 
-See [research_summary.md](research_summary.md) for the full write-up covering introduction, methodology, results, and conclusions with academic references.
