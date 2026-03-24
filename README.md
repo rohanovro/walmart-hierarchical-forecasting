@@ -60,6 +60,11 @@ Independent forecasts at each level are **incoherent** — the sum of department
 
 See [research_summary.md](research_summary.md) for the full write-up covering introduction, methodology, results, and conclusions with academic references.
 
+
+
+
+
+
 ## Dataset
 
 Download from Kaggle → [Walmart Store Sales Forecasting](https://www.kaggle.com/competitions/walmart-recruiting-store-sales-forecasting/data)
