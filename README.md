@@ -155,3 +155,100 @@ textbook defaults (Silver et al. 2017), not Walmart actuals.
 - Newey & West (1987). *Econometrica* 55(3).
 - Silver, Pyke & Thomas (2017). *Inventory and Production Management* (4th ed.). CRC Press.
 - Wickramasuriya, Athanasopoulos & Hyndman (2019). *JASA* 114(526).
+
+---
+
+## Research Summary
+
+> Full academic write-up. Also available as [`research_summary.md`](research_summary.md).
+
+### Abstract
+
+Four hierarchical reconciliation methods — Bottom-Up, Top-Down, MinT (proportional),
+and ERM — are evaluated on the Walmart Store Sales dataset (421,570 weekly
+observations, 45 stores, 81 departments). A GBM base model with strict walk-forward
+cross-validation serves as the base forecaster. All reconciliation weights use
+training-period data only — no test-period actuals. Statistical significance is
+assessed with a HAC-corrected Diebold-Mariano test (Newey-West variance). ERM
+achieves the best performance at all three hierarchy levels and is statistically
+significantly better than Bottom-Up (DM = −3.228, p = 0.0012).
+
+### Introduction
+
+Retail demand forecasting must produce coherent predictions across aggregation
+levels. Independent department, store, and chain forecasts are incoherent — the
+sum of department forecasts does not equal the store forecast — creating downstream
+problems in inventory planning and supply chain coordination.
+
+This project evaluates four reconciliation strategies on a real-world 3-level
+retail hierarchy (chain → 45 stores → 81 departments → ~3,331 store-dept pairs)
+to determine which method delivers the most accurate and cost-effective forecasts.
+
+### Methods
+
+**Base Model** — Gradient Boosting Regressor with walk-forward CV (last 12 weeks
+as test, no temporal leakage). Features: 1/2/4-week lags, 4/8-week rolling means,
+time features, holiday flags, CPI, fuel price, temperature, unemployment, markdowns.
+
+**Bottom-Up** — Sum dept base forecasts upward. Dept accuracy unchanged from base.
+
+**Top-Down** — Disaggregate chain-level forecast by training-period dept proportions
+of chain total. Loses granular dept signal.
+
+**MinT (Proportional)** — Distribute store-level base forecasts to depts using
+each dept's training-period share of its store total. No test actuals used.
+Proportional approximation to full covariance MinT (Wickramasuriya et al. 2019).
+
+**ERM** — Ridge regression weight per store-dept fitted on training residuals,
+applied to test-period base forecasts. No test targets used during weight learning.
+
+**DM Test** — Newey-West HAC-corrected variance with lag truncation floor(T^(1/3))
+to account for serial correlation in weekly forecast errors.
+
+### Results
+
+| Method | Level | RMSE ($) | MAPE (%) |
+|--------|-------|:--------:|:--------:|
+| Base GBM | Dept | 2,987 | 637.5 |
+| Bottom-Up | Dept | 2,987 | 637.5 |
+| Bottom-Up | Store | 57,176 | 3.9 |
+| Bottom-Up | Chain | 999,798 | 1.7 |
+| Top-Down | Dept | 4,848 | 1011.9 |
+| Top-Down | Store | 94,406 | 6.4 |
+| Top-Down | Chain | 1,002,698 | 1.7 |
+| MinT (proportional) | Dept | 4,498 | 1005.6 |
+| MinT (proportional) | Store | 57,294 | 3.9 |
+| MinT (proportional) | Chain | 1,002,718 | 1.7 |
+| **ERM** | **Dept** | **3,044** | 1143.6 |
+| **ERM** | **Store** | **55,613** | **3.8** |
+| **ERM** | **Chain** | **932,247** | **1.6** |
+
+**Diebold-Mariano (HAC-corrected):**
+
+| Comparison | DM Statistic | p-value | Result |
+|------------|:------------:|:-------:|--------|
+| MinT vs Bottom-Up (dept) | −11.356 | < 0.0001 | MinT significantly worse |
+| **ERM vs Bottom-Up (dept)** | **−3.228** | **0.0012** | **ERM significantly better** |
+
+**Inventory Cost (illustrative parameters — not Walmart actuals):**
+
+| Method | Holding | Stockout | Total |
+|--------|:-------:|:--------:|:-----:|
+| Bottom-Up | $3,379,535 | $2,938,048 | $6,317,555 |
+| MinT | $3,379,535 | $4,706,986 | $8,086,040 |
+
+### Conclusion
+
+ERM outperforms all methods at every hierarchy level with statistical significance
+(p = 0.0012). Top-Down and proportional MinT both degrade dept-level accuracy,
+confirming that coarse historical proportions are insufficient for heterogeneous
+retail series. Full covariance-based MinT (Wickramasuriya et al. 2019) is the
+primary direction for future work.
+
+### References
+
+- Diebold & Mariano (1995). Comparing Predictive Accuracy. *JBES* 13(3).
+- Hyndman et al. (2011). Optimal combination forecasts. *CSDA* 55(9).
+- Newey & West (1987). HAC Covariance Matrix. *Econometrica* 55(3).
+- Silver, Pyke & Thomas (2017). *Inventory and Production Management* (4th ed.). CRC Press.
+- Wickramasuriya, Athanasopoulos & Hyndman (2019). Optimal Forecast Reconciliation. *JASA* 114(526).
